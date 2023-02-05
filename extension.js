@@ -105,7 +105,7 @@ function px2vh(px, viewportHeight) {
   const config = vscode.workspace.getConfiguration("px-to-vh");
   var maxDecimals = config.get("number-of-decimals-digits");
   maxDecimals = Math.max(0, maxDecimals);
-  const value = parseFloat(100 * (px / viewportHeight).toFixed(maxDecimals));
+  const value = parseFloat((100 * (px / viewportHeight)).toFixed(maxDecimals));
   return value;
 }
 function vh2px(vh, viewportHeight) {

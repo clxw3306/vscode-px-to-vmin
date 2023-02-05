@@ -2,8 +2,8 @@
     "name": "px-to-vh",
     "displayName": "px to vh",
     "description": "Converts px to vh, and vice versa",
-    "version": "1.0.0",
-    "publisher": "sainoba",
+    "version": "1.0.1",
+    "publisher": "eichenholz",
     "engines": {
         "vscode": "^1.5.0"
     },
