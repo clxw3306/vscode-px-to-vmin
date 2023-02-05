@@ -10,14 +10,14 @@ function activate(context) {
   // The commandId parameter must match the command field in package.json
 
   var disposable = vscode.commands.registerTextEditorCommand(
-    "extension.remToPx",
-    function(textEditor, textEditorEdit) {
-      const config = vscode.workspace.getConfiguration("px-to-rem");
-      const pxPerRem = config.get("px-per-rem");
-      var regexStr = "([0-9]*\\.?[0-9]+)rem";
+    "extension.vhToPx",
+    function (textEditor, textEditorEdit) {
+      const config = vscode.workspace.getConfiguration("px-to-vh");
+      const viewportHeight = config.get("viewport-height");
+      var regexStr = "([0-9]*\\.?[0-9]+)vh";
       placeholder(
         regexStr,
-        (match, value) => `${rem2Px(value, pxPerRem)}px`,
+        (match, value) => `${vh2px(value, viewportHeight)}px`,
         textEditor,
         textEditorEdit
       );
@@ -26,14 +26,14 @@ function activate(context) {
   context.subscriptions.push(disposable);
 
   disposable = vscode.commands.registerTextEditorCommand(
-    "extension.pxToRem",
-    function(textEditor, textEditorEdit) {
-      const config = vscode.workspace.getConfiguration("px-to-rem");
-      const pxPerRem = config.get("px-per-rem");
+    "extension.pxToVh",
+    function (textEditor, textEditorEdit) {
+      const config = vscode.workspace.getConfiguration("px-to-vh");
+      const viewportHeight = config.get("viewport-height");
       var regexStr = "([0-9]*\\.?[0-9]+)px";
       placeholder(
         regexStr,
-        (match, value) => `${px2Rem(value, pxPerRem)}rem`,
+        (match, value) => `${px2vh(value, viewportHeight)}vh`,
         textEditor,
         textEditorEdit
       );
@@ -42,17 +42,17 @@ function activate(context) {
   context.subscriptions.push(disposable);
 
   disposable = vscode.commands.registerTextEditorCommand(
-    "extension.pxToremAndRemToPx",
-    function(textEditor, textEditorEdit) {
-      const config = vscode.workspace.getConfiguration("px-to-rem");
-      const pxPerRem = config.get("px-per-rem");
-      var regexStr = "([0-9]*\\.?[0-9]+)(px|rem)";
+    "extension.pxToVhAndVhToPx",
+    function (textEditor, textEditorEdit) {
+      const config = vscode.workspace.getConfiguration("px-to-vh");
+      const viewportHeight = config.get("viewport-height");
+      var regexStr = "([0-9]*\\.?[0-9]+)(px|vh)";
       placeholder(
         regexStr,
         (match, value, unit) =>
           unit == "px"
-            ? `${px2Rem(value, pxPerRem)}rem`
-            : `${rem2Px(value, pxPerRem)}px`,
+            ? `${px2vh(value, viewportHeight)}vh`
+            : `${vh2px(value, viewportHeight)}px`,
         textEditor,
         textEditorEdit
       );
@@ -61,14 +61,14 @@ function activate(context) {
   context.subscriptions.push(disposable);
 
   disposable = vscode.commands.registerCommand(
-    "extension.pxPerRem",
+    "extension.viewportHeight",
     async () => {
-      const config = vscode.workspace.getConfiguration("px-to-rem");
-      const pxPerRem = config.get("px-per-rem");
+      const config = vscode.workspace.getConfiguration("px-to-vh");
+      const viewportHeight = config.get("viewport-height");
       var inputValue = await vscode.window.showInputBox({
-        prompt: "Number of pixels per 1 rem. Default is 16.",
-        value: `${pxPerRem}`,
-        placeHolder: "Default value is 16"
+        prompt: "Viewport height the px are set to. Default is 1080.",
+        value: `${viewportHeight}`,
+        placeHolder: "Default value is 1080",
       });
       if (typeof inputValue == "undefined") {
         // Closed input box
@@ -76,18 +76,18 @@ function activate(context) {
       }
       inputValue = inputValue.trim();
       if (inputValue === "") {
-        inputValue = 16;
+        inputValue = 1080;
       }
-      const newPxPerRem = parseInt(inputValue);
-      if (isNaN(newPxPerRem)) {
+      const newViewportHeight = parseInt(inputValue);
+      if (isNaN(newViewportHeight)) {
         vscode.window.showErrorMessage(
-          `${inputValue} is not a valid integer to set as px per rem.`
+          `${inputValue} is not a valid integer as viewport height.`
         );
         return;
       }
-      config.update("px-per-rem", newPxPerRem);
+      config.update("viewport-height", newViewportHeight);
       vscode.window.showInformationMessage(
-        `Px per rem was updated to ${newPxPerRem}px`
+        `Viewport height was updated to ${newViewportHeight}px`
       );
     }
   );
@@ -98,21 +98,21 @@ exports.activate = activate;
 // this method is called when your extension is deactivated
 function deactivate() {}
 
-function px2Rem(px, pxPerRem) {
-  if (pxPerRem == 0) {
+function px2vh(px, viewportHeight) {
+  if (viewportHeight == 0) {
     return 0;
   }
-  const config = vscode.workspace.getConfiguration("px-to-rem");
+  const config = vscode.workspace.getConfiguration("px-to-vh");
   var maxDecimals = config.get("number-of-decimals-digits");
   maxDecimals = Math.max(0, maxDecimals);
-  const value = parseFloat((px / pxPerRem).toFixed(maxDecimals));
+  const value = parseFloat(100 * (px / viewportHeight).toFixed(maxDecimals));
   return value;
 }
-function rem2Px(rem, pxPerRem) {
-  const config = vscode.workspace.getConfiguration("px-to-rem");
+function vh2px(vh, viewportHeight) {
+  const config = vscode.workspace.getConfiguration("px-to-vh");
   var maxDecimals = config.get("number-of-decimals-digits");
   maxDecimals = Math.max(0, maxDecimals);
-  const value = parseFloat((rem * pxPerRem).toFixed(maxDecimals));
+  const value = parseFloat(((vh * viewportHeight) / 100).toFixed(maxDecimals));
   return value;
 }
 
@@ -130,15 +130,15 @@ function placeholder(regexString, replaceFunction, textEditor, textEditorEdit) {
     return;
   }
   // Get configuration options
-  const config = vscode.workspace.getConfiguration("px-to-rem");
+  const config = vscode.workspace.getConfiguration("px-to-vh");
   const onlyChangeFirst = config.get("only-change-first-ocurrence");
   const warningIfNoChanges = config.get("notify-if-no-changes");
   const changesMade = new Map();
   textEditor
-    .edit(builder => {
+    .edit((builder) => {
       // Declaration of auxiliar variables
       let numOcurrences = 0;
-      selections.forEach(selection => {
+      selections.forEach((selection) => {
         // Iterates over each selected line
         for (
           var index = selection.start.line;
@@ -199,7 +199,7 @@ function placeholder(regexString, replaceFunction, textEditor, textEditorEdit) {
         vscode.window.showWarningMessage("There were no values to transform");
       }
     })
-    .then(success => {
+    .then((success) => {
       textEditor.selections.forEach((selection, index, newSelections) => {
         if (selections[index].start.isEqual(selections[index].end)) {
           const newPosition = selection.end;

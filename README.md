@@ -1,86 +1,43 @@
-# px to rem
+# VSCode px to vh converter
 
-This is an extension for Visual Studio Code that allows you to convert px to rem, and vice versa.
+This is an extension for Visual Studio Code that allows you to convert px to vh, and vice versa.
+Forked from px-to-rem
 
 ## Usage
 
 ### Keybindings
 
-- `Alt+Z` Px to rem, and rem to px. Converts selected text from px to rem, and rem to px.
-- `Alt+S` Asks for a new px per rem value.
+- `Alt+Z` Px to vh, and vh to px. Converts selected text from px to vh, and vh to px.
+- `Alt+S` Asks for a new viewport height value.
 
 ![](./imgs/alt_z.gif)
 
 ### Commands
 
-- Px to rem, and rem to px. Converts selected text from px to rem, and rem to px.
-- Px to rem. Converts selected text from px to rem
-- Rem to px. Converts selected text from rem to px
-- Px per rem. Asks for a new px per rem value.
+- Px to vh, and vh to px. Converts selected text from px to vh, and vh to px.
+- Px to vh. Converts selected text from px to vh
+- vh to px. Converts selected text from vh to px
+- Change px viewport height. Asks for a new viewport height value.
 
 ## Extension Settings
 
 This extension contributes the following settings:
 
-- `px-to-rem.px-per-rem`: number of pixels per rem. Default is `16` pixels per rem.
-- `px-to-rem.number-of-decimals-digits`: maximum number of decimals digits a px or rem can have
-- `px-to-rem.only-change-first-ocurrence`: set to change all or only the first selected ocurrence of px/rem
-- `px-to-rem.notify-if-no-changes`: enable/disable notification that alerts the users if no conversion could be made
+- `px-to-vh.viewport-height`: height of the viewport the pixels set to. Default is 1080px.
+- `px-to-vh.number-of-decimals-digits`: maximum number of decimals digits a px or vh can have
+- `px-to-vh.only-change-first-ocurrence`: set to change all or only the first selected ocurrence of px/vh
+- `px-to-vh.notify-if-no-changes`: enable/disable notification that alerts the users if no conversion could be made
 
 ## Known Issues
 
 - If you select a value with multiple cursors it will get converted, but following cursors may change place after the conversion.
-- '_Edits from command extension.pxToremAndRemToPx were not applied_' message appears in debug console.
-
-## Release Notes
-
-### 1.3.0
-
-- Merged functionality to change px-to-rem with shortcut.
-
-### 1.2.7
-
-- Fixed bug, minimum number of decimal was 1, not 0
-
-### 1.2.6
-
-- Added gif for `alt + z` keybinding
-
-### 1.2.5
-
-- Fixed bug where text was being selected after conversion.
-
-### 1.2.4
-
-- There's no need to select a value to modify it. Now you only have to have the curso next to the value.
-
-### 1.2.2 & 1.2.3
-
-- Modified readme
-
-### 1.2.1
-
-- Fixed bug, The program was not finding all the px and rems in the selections
-
-### 1.2.0
-
-- Introduced an option to set the maximum number of decimals digits a rem and px can have
-
-### 1.1.0
-
-- Keybinding added
-- Improved Readme, and fixed some typos
-- New command that allows you to covert rem and px back and forward
-
-### 1.0.0
-
-Initial release
+- '_Edits from command extension.pxTovhAndVhToPx were not applied_' message appears in debug console.
 
 ---
 
 ## Contributing
 
-Feel free to fork this repository and use it the way you like. If you want to propose a nice new feature, just create a pull request from you forked branch.
-[My github](https://github.com/sainoba/vscode-px-to-rem)
+Feel free to fork this or the original repository and use it the way you like. If you want to propose a nice new feature, just create a pull request from your forked branch.
+[original repo (px-to-rem)](https://github.com/sainoba/vscode-px-to-rem)
 
 **Enjoy!**
