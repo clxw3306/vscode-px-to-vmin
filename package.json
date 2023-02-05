@@ -1,93 +1,99 @@
 {
-  "name": "px-to-vh",
-  "displayName": "px to vh",
-  "description": "Converts px to vh, and vice versa",
-  "version": "1.0.0",
-  "publisher": "sainoba",
-  "engines": {
-    "vscode": "^1.5.0"
-  },
-  "categories": [
-    "Formatters",
-    "Snippets",
-    "Other"
-  ],
-  "keywords": [
-    "px",
-    "vh",
-    "px to vh"
-  ],
-  "icon": "imgs/pxToVhIcon.png",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Eichenholz/vscode-px-to-vh"
-  },
-  "main": "./extension",
-  "contributes": {
-    "configuration": {
-      "title": "Px to vh configuration",
-      "properties": {
-        "px-to-vh.viewport-height": {
-          "type": "integer",
-          "default": 1080,
-          "description": "Height of the viewport the pixels set to."
-        },
-        "px-to-vh.only-change-first-ocurrence": {
-          "type": "boolean",
-          "default": false,
-          "description": "Set value to only change first occurence of px/vh per selection."
-        },
-        "px-to-vh.notify-if-no-changes": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show a warning if no conversion could be made."
-        },
-        "px-to-vh.number-of-decimals-digits": {
-          "type": "integer",
-          "default": 4,
-          "description": "Maximum number of decimals digits a px or vh can have."
-        }
-      }
+    "name": "px-to-vh",
+    "displayName": "px to vh",
+    "description": "Converts px to vh, and vice versa",
+    "version": "1.0.0",
+    "publisher": "sainoba",
+    "engines": {
+        "vscode": "^1.5.0"
     },
-    "commands": [
-      {
-        "command": "extension.pxToVh",
-        "title": "Px to vh: Converts px to vh"
-      },
-      {
-        "command": "extension.vhToPx",
-        "title": "Vh to px: Convert vh to px"
-      },
-      {
-        "command": "extension.pxToVhAndVhToPx",
-        "title": "Px to vh, and vh to px. Converts selected text from px to vh, and vh to px."
-      },
-      {
-        "command": "extension.viewportHeight",
-        "title": "Change px viewport height."
-      }
+    "categories": [
+        "Formatters",
+        "Snippets",
+        "Other"
     ],
-    "keybindings": [
-      {
-        "command": "extension.pxToVhAndVhToPx",
-        "key": "Alt+z"
-      },
-      {
-        "command": "extension.viewportHeight",
-        "key": "Alt+s"
-      }
-    ]
-  },
-  "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test"
-  },
-  "devDependencies": {
-    "typescript": "^2.0.3",
-    "vscode": "^1.0.0",
-    "mocha": "^2.3.3",
-    "eslint": "^6.5.1",
-    "@types/node": "^6.0.40",
-    "@types/mocha": "^2.2.32"
-  }
+    "keywords": [
+        "px",
+        "vh",
+        "px to vh"
+    ],
+    "icon": "imgs/pxToVhIcon.png",
+    "activationEvents": [
+        "onCommand:extension.pxToVh",
+        "onCommand:extension.vhToPx",
+        "onCommand:extension.pxToVhAndVhToPx",
+        "onCommand:extension.viewportHeight"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Eichenholz/vscode-px-to-vh"
+    },
+    "main": "./extension",
+    "contributes": {
+        "configuration": {
+            "title": "Px to vh configuration",
+            "properties": {
+                "px-to-vh.viewport-height": {
+                    "type": "integer",
+                    "default": 1080,
+                    "description": "Height of the viewport the pixels set to."
+                },
+                "px-to-vh.only-change-first-ocurrence": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Set value to only change first occurence of px/vh per selection."
+                },
+                "px-to-vh.notify-if-no-changes": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show a warning if no conversion could be made."
+                },
+                "px-to-vh.number-of-decimals-digits": {
+                    "type": "integer",
+                    "default": 4,
+                    "description": "Maximum number of decimals digits a px or vh can have."
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "extension.pxToVh",
+                "title": "Px to vh: Converts px to vh"
+            },
+            {
+                "command": "extension.vhToPx",
+                "title": "Vh to px: Convert vh to px"
+            },
+            {
+                "command": "extension.pxToVhAndVhToPx",
+                "title": "Px to vh, and vh to px. Converts selected text from px to vh, and vh to px."
+            },
+            {
+                "command": "extension.viewportHeight",
+                "title": "Change px viewport height."
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.pxToVhAndVhToPx",
+                "key": "Alt+z"
+            },
+            {
+                "command": "extension.viewportHeight",
+                "key": "Alt+s"
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "eslint": "^6.5.1",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    }
 }
