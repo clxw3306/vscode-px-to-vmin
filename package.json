@@ -1,9 +1,9 @@
 {
-    "name": "px-to-vh",
-    "displayName": "px to vh",
-    "description": "Converts px to vh, and vice versa",
+    "name": "px-to-vmin",
+    "displayName": "px to vmin",
+    "description": "Converts px to vmin, and vice versa (Fork of px-to-vh)",
     "version": "1.0.1",
-    "publisher": "eichenholz",
+    "publisher": "clxw",
     "engines": {
         "vscode": "^1.5.0"
     },
@@ -14,59 +14,59 @@
     ],
     "keywords": [
         "px",
-        "vh",
-        "px to vh"
+        "vmin",
+        "px to vmin"
     ],
-    "icon": "imgs/pxToVhIcon.png",
+    "icon": "imgs/pxTovminIcon.png",
     "activationEvents": [
-        "onCommand:extension.pxToVh",
-        "onCommand:extension.vhToPx",
-        "onCommand:extension.pxToVhAndVhToPx",
+        "onCommand:extension.pxTovmin",
+        "onCommand:extension.vminToPx",
+        "onCommand:extension.pxTovminAndvminToPx",
         "onCommand:extension.viewportHeight"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/Eichenholz/vscode-px-to-vh"
+        "url": "https://github.com/clxw3306/vscode-px-to-vmin"
     },
     "main": "./extension",
     "contributes": {
         "configuration": {
-            "title": "Px to vh configuration",
+            "title": "Px to vmin configuration",
             "properties": {
-                "px-to-vh.viewport-height": {
+                "px-to-vmin.viewport-height": {
                     "type": "integer",
                     "default": 1080,
                     "description": "Height of the viewport the pixels set to."
                 },
-                "px-to-vh.only-change-first-ocurrence": {
+                "px-to-vmin.only-change-first-ocurrence": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Set value to only change first occurence of px/vh per selection."
+                    "description": "Set value to only change first occurence of px/vmin per selection."
                 },
-                "px-to-vh.notify-if-no-changes": {
+                "px-to-vmin.notify-if-no-changes": {
                     "type": "boolean",
                     "default": true,
                     "description": "Show a warning if no conversion could be made."
                 },
-                "px-to-vh.number-of-decimals-digits": {
+                "px-to-vmin.number-of-decimals-digits": {
                     "type": "integer",
                     "default": 4,
-                    "description": "Maximum number of decimals digits a px or vh can have."
+                    "description": "Maximum number of decimals digits a px or vmin can have."
                 }
             }
         },
         "commands": [
             {
-                "command": "extension.pxToVh",
-                "title": "Px to vh: Converts px to vh"
+                "command": "extension.pxTovmin",
+                "title": "Px to vmin: Converts px to vmin"
             },
             {
-                "command": "extension.vhToPx",
-                "title": "Vh to px: Convert vh to px"
+                "command": "extension.vminToPx",
+                "title": "vmin to px: Convert vmin to px"
             },
             {
-                "command": "extension.pxToVhAndVhToPx",
-                "title": "Px to vh, and vh to px. Converts selected text from px to vh, and vh to px."
+                "command": "extension.pxTovminAndvminToPx",
+                "title": "Px to vmin, and vmin to px. Converts selected text from px to vmin, and vmin to px."
             },
             {
                 "command": "extension.viewportHeight",
@@ -75,7 +75,7 @@
         ],
         "keybindings": [
             {
-                "command": "extension.pxToVhAndVhToPx",
+                "command": "extension.pxTovminAndvminToPx",
                 "key": "Alt+z"
             },
             {

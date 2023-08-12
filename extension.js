@@ -10,14 +10,14 @@ function activate(context) {
   // The commandId parameter must match the command field in package.json
 
   var disposable = vscode.commands.registerTextEditorCommand(
-    "extension.vhToPx",
+    "extension.vminToPx",
     function (textEditor, textEditorEdit) {
-      const config = vscode.workspace.getConfiguration("px-to-vh");
+      const config = vscode.workspace.getConfiguration("px-to-vmin");
       const viewportHeight = config.get("viewport-height");
-      var regexStr = "([0-9]*\\.?[0-9]+)vh";
+      var regexStr = "([0-9]*\\.?[0-9]+)vmin";
       placeholder(
         regexStr,
-        (match, value) => `${vh2px(value, viewportHeight)}px`,
+        (match, value) => `${vmin2px(value, viewportHeight)}px`,
         textEditor,
         textEditorEdit
       );
@@ -26,14 +26,14 @@ function activate(context) {
   context.subscriptions.push(disposable);
 
   disposable = vscode.commands.registerTextEditorCommand(
-    "extension.pxToVh",
+    "extension.pxTovmin",
     function (textEditor, textEditorEdit) {
-      const config = vscode.workspace.getConfiguration("px-to-vh");
+      const config = vscode.workspace.getConfiguration("px-to-vmin");
       const viewportHeight = config.get("viewport-height");
       var regexStr = "([0-9]*\\.?[0-9]+)px";
       placeholder(
         regexStr,
-        (match, value) => `${px2vh(value, viewportHeight)}vh`,
+        (match, value) => `${px2vmin(value, viewportHeight)}vmin`,
         textEditor,
         textEditorEdit
       );
@@ -42,17 +42,17 @@ function activate(context) {
   context.subscriptions.push(disposable);
 
   disposable = vscode.commands.registerTextEditorCommand(
-    "extension.pxToVhAndVhToPx",
+    "extension.pxTovminAndvminToPx",
     function (textEditor, textEditorEdit) {
-      const config = vscode.workspace.getConfiguration("px-to-vh");
+      const config = vscode.workspace.getConfiguration("px-to-vmin");
       const viewportHeight = config.get("viewport-height");
-      var regexStr = "([0-9]*\\.?[0-9]+)(px|vh)";
+      var regexStr = "([0-9]*\\.?[0-9]+)(px|vmin)";
       placeholder(
         regexStr,
         (match, value, unit) =>
           unit == "px"
-            ? `${px2vh(value, viewportHeight)}vh`
-            : `${vh2px(value, viewportHeight)}px`,
+            ? `${px2vmin(value, viewportHeight)}vmin`
+            : `${vmin2px(value, viewportHeight)}px`,
         textEditor,
         textEditorEdit
       );
@@ -63,7 +63,7 @@ function activate(context) {
   disposable = vscode.commands.registerCommand(
     "extension.viewportHeight",
     async () => {
-      const config = vscode.workspace.getConfiguration("px-to-vh");
+      const config = vscode.workspace.getConfiguration("px-to-vmin");
       const viewportHeight = config.get("viewport-height");
       var inputValue = await vscode.window.showInputBox({
         prompt: "Viewport height the px are set to. Default is 1080.",
@@ -98,21 +98,21 @@ exports.activate = activate;
 // this method is called when your extension is deactivated
 function deactivate() {}
 
-function px2vh(px, viewportHeight) {
+function px2vmin(px, viewportHeight) {
   if (viewportHeight == 0) {
     return 0;
   }
-  const config = vscode.workspace.getConfiguration("px-to-vh");
+  const config = vscode.workspace.getConfiguration("px-to-vmin");
   var maxDecimals = config.get("number-of-decimals-digits");
   maxDecimals = Math.max(0, maxDecimals);
   const value = parseFloat((100 * (px / viewportHeight)).toFixed(maxDecimals));
   return value;
 }
-function vh2px(vh, viewportHeight) {
-  const config = vscode.workspace.getConfiguration("px-to-vh");
+function vmin2px(vmin, viewportHeight) {
+  const config = vscode.workspace.getConfiguration("px-to-vmin");
   var maxDecimals = config.get("number-of-decimals-digits");
   maxDecimals = Math.max(0, maxDecimals);
-  const value = parseFloat(((vh * viewportHeight) / 100).toFixed(maxDecimals));
+  const value = parseFloat(((vmin * viewportHeight) / 100).toFixed(maxDecimals));
   return value;
 }
 
@@ -130,7 +130,7 @@ function placeholder(regexString, replaceFunction, textEditor, textEditorEdit) {
     return;
   }
   // Get configuration options
-  const config = vscode.workspace.getConfiguration("px-to-vh");
+  const config = vscode.workspace.getConfiguration("px-to-vmin");
   const onlyChangeFirst = config.get("only-change-first-ocurrence");
   const warningIfNoChanges = config.get("notify-if-no-changes");
   const changesMade = new Map();
